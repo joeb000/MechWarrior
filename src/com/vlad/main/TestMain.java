@@ -16,6 +16,7 @@ public class TestMain {
 
 	public static void main(String[] args) {
 
+		System.out.println("welcome to mech warrior");
 		TestMain main = new TestMain();
 
 		main.playGame();
