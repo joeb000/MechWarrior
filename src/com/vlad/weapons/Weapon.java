@@ -9,13 +9,14 @@ public abstract class Weapon {
 	
 	private int damage;
 	private int accuracy;
+	private String weaponName="";
 	public abstract void init();
 	
 	public int fireWeapon(int playerAccuracy){
-		
+		System.out.println("Firing "+ getWeaponName()+"...");
 		int retVal=0;
 		if (isHit(playerAccuracy)){
-			retVal = damage;
+			retVal = getDamage();
 		}
 		return retVal;
 	}
@@ -48,6 +49,14 @@ public abstract class Weapon {
 	}
 	public void setAccuracy(int accuracy) {
 		this.accuracy = accuracy;
+	}
+
+	public String getWeaponName() {
+		return weaponName;
+	}
+
+	public void setWeaponName(String weaponName) {
+		this.weaponName = weaponName;
 	}
 	
 	

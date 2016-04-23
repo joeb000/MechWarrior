@@ -10,6 +10,9 @@ import com.vlad.weapons.MissilePod;
 import com.vlad.weapons.Weapon;
 
 public class TestMain {
+	
+	private Player mainPlayer;
+	private MK1Factory currentMech;
 
 	public static void main(String[] args) {
 
@@ -28,9 +31,9 @@ public class TestMain {
 		println("What is your name?");
 		String name = processUserInput();
 
-		Player me = new Player(name, 100, 2);
+		this.setMainPlayer(new Player(name, 100, 20));
 
-		println(me.getPlayerInfo());
+		println(mainPlayer.getPlayerInfo());
 		//Welcome stuff
 		//Explain global options (help menu)
 		println("Press any key to continue...");
@@ -38,21 +41,21 @@ public class TestMain {
 		MK1Factory enemy = findWarrior(level);
 		println("How do you want to proceed?");
 		int i=3;
-		if (me.getInitiative()>enemy.getInitiative()){
+		if (mainPlayer .getInitiative()>enemy.getInitiative()){
 			i=2;
 		}else{
 			i=3;
 		}
-		while (enemy.getMechHitpoints()>0 && me.getPlayerHitpoints()>0){
+		while (enemy.getMechHitpoints()>0 && mainPlayer.getPlayerHitpoints()>0){
 			//determine who attacks first
 			//add attack loop
 			if (i%2==0){
-				playerAttack(me,enemy);
+				playerAttack(mainPlayer,enemy);
 				println(enemy.getMechInfo());
 			}
 			else{
-				mechAttack(me, enemy);
-				println(me.getPlayerInfo());
+				mechAttack(mainPlayer, enemy);
+				println(mainPlayer.getPlayerInfo());
 			}
 			i++;
 			
@@ -117,17 +120,39 @@ public class TestMain {
 
 	public String processUserInput(){
 		Scanner sc = new Scanner(System.in);
+		String input = sc.next();
 		//Help command filter
-
+		if (input.equalsIgnoreCase("H")){
+			System.out.println(getMainPlayer().getPlayerInfo());
+		}
 		//Exit command filter
 
-		//Print Stats
-
-		return sc.next();
+		//Print Stats - if 'I' print info
+		if (input.equalsIgnoreCase("I")){
+			System.out.println(getMainPlayer().getPlayerInfo());
+		}
+		
+		return input;
 	}
 
 	private void println(String s){
 		System.out.println(s);
+	}
+
+	public Player getMainPlayer() {
+		return mainPlayer;
+	}
+
+	public void setMainPlayer(Player mainPlayer) {
+		this.mainPlayer = mainPlayer;
+	}
+
+	public MK1Factory getCurrentMech() {
+		return currentMech;
+	}
+
+	public void setCurrentMech(MK1Factory currentMech) {
+		this.currentMech = currentMech;
 	}
 
 }
